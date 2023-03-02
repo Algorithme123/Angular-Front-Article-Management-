@@ -1,0 +1,142 @@
+<section class="py-5">
+
+  <div class="container px-4 px-lg-5 mt-5">
+
+
+
+
+    <div *ngIf="!afficherFormulaire" >
+      <div class="row">
+
+
+        <!-- Capturer les message de success -->
+        <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{ successMessage }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="col-sm-4">
+
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="rechercher votre article" aria-label="Search">
+
+            </form>
+
+
+        </div>
+        <div class="col-sm-8">
+          <button (click)="fonctionModifierVariable()" type="button" id="add" class="btn btn-outline-primary mb-5">+ Ajouter</button>
+        </div>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Designation</th>
+            <th scope="col">P.U</th>
+            <th scope="col">quantite</th>
+            <th scope="col">description</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let article of articles; let i=index ">
+            <th scope="row" >{{ i +1}}</th>
+            <td>{{article.designation}}</td>
+            <td>{{article.prixUnitaire}}</td>
+            <td>{{article.quantite}}</td>
+            <td>{{article.description}}</td>
+            <td>
+              <button type="button" class="btn btn-warning"  (click)="modifier(article)">Modifier</button>
+              &nbsp;
+               <button type="button" class="btn btn-danger" (click)="confirmBox(article.id)">Supprimer</button>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="afficherFormulaire">
+                <!-- Capturer les message d'erreur -->
+                <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{ errorMessage }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <!-- Capturer les message de success -->
+          <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{ successMessage }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-8">
+          <button (click)="fonctionModifierVariable()" type="button" id="add" class="btn btn-outline-primary mb-5">+ Liste</button>
+        </div>
+      </div>
+
+
+      <form class="row g-3 needs-validation" [formGroup]="formulaireAjoutArticle" (ngSubmit)="modifierEtatAjout()" >
+        <div class="row">
+          <div class="col-md-6">
+            <label for="validationCustom01" class="form-label">Designation</label>
+            <input type="text" [(ngModel)]="article.designation"  formControlName="designation" class="form-control" id="validationCustom01"  required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <label for="validationCustom02" class="form-label"> Prix Unitaire</label>
+            <input type="text" [(ngModel)]="article.prixUnitaire" formControlName="prixUnitaire" class="form-control" id="validationCustom02"  required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <label for="validationCustom02" class="form-label"> Quantite</label>
+            <input type="text" [(ngModel)]="article.quantite" formControlName="quantite" class="form-control" id="validationCustom02"  required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <label for="validationCustom02" class="form-label"> Description</label>
+            <input type="text" [(ngModel)]="article.description" formControlName="description" class="form-control" id="validationCustom02"  required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="col-12" *ngIf="ajout==false">
+          <button class="btn btn-primary" type="submit">Enregister</button>
+        </div>
+        <div class="col-12" *ngIf="ajout == true">
+          <button class="btn btn-primary" type="submit">modifier</button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</section>
